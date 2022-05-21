@@ -1,0 +1,79 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
+}
+
+apply plugin: "java"
+apply plugin: "architectury-plugin"
+apply plugin: "maven-publish"
+apply plugin: "dev.architectury.loom"
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    silentMojangMappingsLicense()
+}
+
+version = '1.18.2-1.0.0'
+group = 'cx.rain.mc.oildrums'
+archivesBaseName = 'oildrums'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+//    flatDir {
+//        dir 'libs'
+//    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.mc_version}"
+    forge "net.minecraftforge:forge:${project.mc_version}-${project.forge_version}"
+    mappings loom.officialMojangMappings()
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "oildrums",
+                "Specification-Vendor"    : "qyl27",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "qyl27",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
