@@ -22,6 +22,8 @@ loom {
         dataGen {
             mod 'oildrums'
         }
+
+        mixinConfig "oildrums.mixins.json"
     }
 
     launches {

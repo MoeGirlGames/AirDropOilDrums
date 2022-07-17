@@ -2,21 +2,23 @@ package cx.rain.mc.oildrums.entity;
 
 import cx.rain.mc.oildrums.register.ModEntities;
 import cx.rain.mc.oildrums.utility.OilDrumType;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class OilDrumEntity extends Entity {
-    private OilDrumType drumType;
+    protected OilDrumType drumType = OilDrumType.TRIPLE_YELLOW;
 
-    public OilDrumEntity(EntityType<Entity> entityType, Level level) {
+//    protected int dropTime = 0;
+
+    public OilDrumEntity(EntityType<? extends OilDrumEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -48,23 +50,53 @@ public class OilDrumEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.onGround) {
-            explode();
+
+        if (!isNoGravity() && !onGround) {
+            setDeltaMovement(getDeltaMovement().add(0.0, -0.004, 0.0));
+        } else {
+            setDeltaMovement(Vec3.ZERO);
         }
+        move(MoverType.SELF, getDeltaMovement());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
+        if (!compound.contains("oildrums")) {
+            addAdditionalSaveData(compound);
+        }
 
+        var nbt = compound.getCompound("oildrums");
+
+        if (!nbt.contains("type") || !nbt.contains("dropTime")) {
+            addAdditionalSaveData(compound);
+        }
+
+        var typeString = nbt.getString("type");
+
+        drumType = OilDrumType.fromId(typeString);
+//        dropTime = nbt.getInt("dropTime");
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        if (!compound.contains("oildrums")) {
+            drumType = OilDrumType.TRIPLE_YELLOW;
+        }
 
+        var nbt = compound.getCompound("oildrums");
+        nbt.putString("type", getOilDrumType().getId());
+//        nbt.putInt("dropTime", dropTime);
     }
 
     private void explode() {
-        float radius = (this.drumType == OilDrumType.SUPER_LOUD || this.drumType == OilDrumType.TRIPLE_RED || this.drumType == OilDrumType.SINGLE_RED || this.drumType == OilDrumType.SINGLE_YELLOW || this.drumType == OilDrumType.TRIPLE_YELLOW) ? 5F : 15F;
-        this.level.explode(this, this.getX(), this.getY(0.0625F), this.getZ(), radius, Explosion.BlockInteraction.BREAK);
+        if (level.isClientSide()) {
+            return;
+        }
+
+        level.explode(this, this.getX(), this.getY(0.0625F), this.getZ(), getOilDrumType().getExplodeDistance(), Explosion.BlockInteraction.BREAK);
+    }
+
+    public OilDrumType getOilDrumType() {
+        return drumType;
     }
 }

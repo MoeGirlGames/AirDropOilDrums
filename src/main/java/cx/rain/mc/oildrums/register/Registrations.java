@@ -23,19 +23,20 @@ public final class Registrations {
 	public static void registerItems(@Nonnull RegistryEvent.Register<Item> event) {
 		final IForgeRegistry<Item> reg = event.getRegistry();
 
-		reg.register(new OilDrumItemBase(OilDrumType.SINGLE_YELLOW).setRegistryName("single_yellow"));
-		reg.register(new OilDrumItemBase(OilDrumType.TRIPLE_YELLOW).setRegistryName("triple_yellow"));
-		reg.register(new OilDrumItemBase(OilDrumType.SINGLE_RED).setRegistryName("single_red"));
-		reg.register(new OilDrumItemBase(OilDrumType.TRIPLE_RED).setRegistryName("triple_red"));
-		reg.register(new OilDrumItemBase(OilDrumType.SUPER_LOUD).setRegistryName("super_loud"));
-		reg.register(new OilDrumItemBase(OilDrumType.OIL_DRUM_SET).setRegistryName("oil_drum_set"));
-
+		registerOilDrumsItems(reg);
 	}
 
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
 		final IForgeRegistry<EntityType<?>> reg = event.getRegistry();
 		reg.register(EntityType.Builder.of(OilDrumEntity::new, MobCategory.MISC).sized(0.8F, 1.0F).build("oildrums").setRegistryName("oildrums"));
+	}
+
+	private static void registerOilDrumsItems(IForgeRegistry<Item> registry) {
+		for (var value :
+				OilDrumType.values()) {
+			registry.register(new OilDrumItemBase(value).setRegistryName("item_" + value.getId()));
+		}
 	}
 }
 

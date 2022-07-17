@@ -16,7 +16,7 @@ public class OilDrumItemBase extends Item {
         super(new Properties()
                 .setNoRepair()
                 .stacksTo(16)
-                .tab(CreativeModeTab.TAB_MISC));
+                .tab(TabOilDrums.OIL_DRUMS));
 
         drumType = type;
     }
