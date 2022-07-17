@@ -79,8 +79,6 @@ java {
     withSourcesJar()
 }
 
-jar.finalizedBy('reobfJar')
-
 publishing {
     publications {
         mavenJava(MavenPublication) {

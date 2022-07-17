@@ -1,15 +1,16 @@
 package cx.rain.mc.oildrums.item;
 
-import cx.rain.mc.oildrums.entity.ModEntities;
 import cx.rain.mc.oildrums.entity.OilDrumEntity;
+import cx.rain.mc.oildrums.register.ModEntities;
 import cx.rain.mc.oildrums.utility.OilDrumType;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import org.jetbrains.annotations.NotNull;
 
 public class OilDrumItemBase extends Item {
-    private OilDrumType drumType = null;
+    private OilDrumType drumType;
 
     public OilDrumItemBase(OilDrumType type) {
         super(new Properties()
@@ -21,12 +22,11 @@ public class OilDrumItemBase extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         var pos = context.getClickedPos();
         var level = context.getLevel();
-        var target = level.getBlockState(pos);
 
-        var oilDrums = new OilDrumEntity(ModEntities.OIL_DRUMS.get(), level);
+        var oilDrums = new OilDrumEntity(level, pos.getX(), pos.getY(), pos.getZ(), drumType);
 
         level.addFreshEntity(oilDrums);
 

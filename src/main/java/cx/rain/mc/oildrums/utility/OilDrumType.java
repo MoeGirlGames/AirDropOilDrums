@@ -6,8 +6,7 @@ public enum OilDrumType {
     SINGLE_RED("single_red", 5, 1, 8),
     TRIPLE_RED("triple_red", 5, 1, 16),
     SUPER_LOUD("super_loud", 5, 1.5f, 24),
-    OIL_DRUM_SET("oil_drum_set", 15, 1, 16),
-    ;
+    OIL_DRUM_SET("oil_drum_set", 15, 1, 16);
 
     private String drumId = null;
     private float explode = 0.0f;

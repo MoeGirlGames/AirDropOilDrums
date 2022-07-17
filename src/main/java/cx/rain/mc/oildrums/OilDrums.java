@@ -1,7 +1,7 @@
 package cx.rain.mc.oildrums;
 
-import cx.rain.mc.oildrums.entity.ModEntities;
-import cx.rain.mc.oildrums.item.ModItems;
+import cx.rain.mc.oildrums.register.ModEntities;
+import cx.rain.mc.oildrums.register.ModItems;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +16,5 @@ public class OilDrums {
 
     public OilDrums() {
         logger.info("Ha boom!");
-
-        var bus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModItems.register(bus);
-        ModEntities.register(bus);
     }
 }
