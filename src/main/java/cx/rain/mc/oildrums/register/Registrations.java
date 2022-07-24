@@ -2,6 +2,7 @@ package cx.rain.mc.oildrums.register;
 
 import cx.rain.mc.oildrums.OilDrums;
 import cx.rain.mc.oildrums.entity.OilDrumEntity;
+import cx.rain.mc.oildrums.item.AirDropCallerItem;
 import cx.rain.mc.oildrums.item.OilDrumItemBase;
 import cx.rain.mc.oildrums.utility.OilDrumType;
 import net.minecraft.world.entity.Entity;
@@ -24,18 +25,25 @@ public final class Registrations {
 		final IForgeRegistry<Item> reg = event.getRegistry();
 
 		registerOilDrumsItems(reg);
+
+		reg.register(new AirDropCallerItem().setRegistryName("airdrop_caller"));
 	}
 
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
 		final IForgeRegistry<EntityType<?>> reg = event.getRegistry();
-		reg.register(EntityType.Builder.of(OilDrumEntity::new, MobCategory.MISC).sized(0.8F, 1.0F).build("oildrums").setRegistryName("oildrums"));
+
+		reg.register(EntityType.Builder
+				.<OilDrumEntity>of(OilDrumEntity::new, MobCategory.MISC)
+				.sized(0.8F, 1.0F)
+				.build("oildrums")
+				.setRegistryName("oildrums"));
 	}
 
 	private static void registerOilDrumsItems(IForgeRegistry<Item> registry) {
 		for (var value :
 				OilDrumType.values()) {
-			registry.register(new OilDrumItemBase(value).setRegistryName("item_" + value.getId()));
+			registry.register(new OilDrumItemBase(value).setRegistryName(value.getId()));
 		}
 	}
 }

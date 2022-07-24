@@ -4,21 +4,24 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModItems {
-    @ObjectHolder("oildrums:item_single_yellow")
+    @ObjectHolder("oildrums:single_yellow")
     public static Item SINGLE_YELLOW;
 
-    @ObjectHolder("oildrums:item_triple_yellow")
+    @ObjectHolder("oildrums:triple_yellow")
     public static Item TRIPLE_YELLOW;
 
-    @ObjectHolder("oildrums:item_single_red")
+    @ObjectHolder("oildrums:single_red")
     public static Item SINGLE_RED;
 
-    @ObjectHolder("oildrums:item_triple_red")
+    @ObjectHolder("oildrums:triple_red")
     public static Item TRIPLE_RED;
 
-    @ObjectHolder("oildrums:item_super_loud")
+    @ObjectHolder("oildrums:super_loud")
     public static Item SUPER_LOUD;
 
-    @ObjectHolder("oildrums:item_oil_drum_set")
+    @ObjectHolder("oildrums:oil_drum_set")
     public static Item OIL_DRUM_SET;
+
+    @ObjectHolder("oildrums:airdrop_caller")
+    public static Item AIRDROP_CALLER;
 }
