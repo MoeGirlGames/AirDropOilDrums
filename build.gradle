@@ -43,6 +43,10 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 repositories {
     maven {
         url = 'https://maven.parchmentmc.org'
