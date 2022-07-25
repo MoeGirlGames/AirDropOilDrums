@@ -85,6 +85,10 @@ jar {
 
 java {
     withSourcesJar()
+
+    sourcesJar {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
 }
 
 publishing {
