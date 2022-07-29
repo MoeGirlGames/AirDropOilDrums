@@ -13,6 +13,6 @@ public class TabOilDrums extends CreativeModeTab {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(ModItems.TRIPLE_YELLOW);
+        return new ItemStack(ModItems.AIRDROP_CALLER);
     }
 }

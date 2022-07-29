@@ -1,3 +1,8 @@
 {
-  "item.oildrums.airdrop_caller": "Airdrop caller"
+  "item.oildrums.airdrop_caller": "Bomb setter",
+  "item.oildrums.fire_ball": "Exploding ball",
+  "item.oildrums.fire_ball.clue": "There seems to be smoke in the forest?",
+  "itemGroup.oildrums": "Airdrop OilDrums",
+  "oildrums.fire_ball.desc.1": "It will really explode!",
+  "oildrums.fire_ball.desc.2": "But explosion is an art."
 }

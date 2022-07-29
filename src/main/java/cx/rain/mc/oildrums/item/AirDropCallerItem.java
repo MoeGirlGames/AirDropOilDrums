@@ -1,15 +1,20 @@
 package cx.rain.mc.oildrums.item;
 
 import cx.rain.mc.oildrums.client.renderer.AirDropCallingRenderer;
+import cx.rain.mc.oildrums.network.ModNetworking;
+import cx.rain.mc.oildrums.network.packet.CallExplodeC2SPacket;
+import cx.rain.mc.oildrums.utility.BoomHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.DeferredWorkQueue;
 
 public class AirDropCallerItem extends Item {
     public AirDropCallerItem() {
@@ -27,20 +32,12 @@ public class AirDropCallerItem extends Item {
     }
 
     @Override
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        return BoomHelper.addBomb(stack, player, target, hand);
+    }
+
+    @Override
     public InteractionResult useOn(UseOnContext context) {
-        var pos = context.getClickedPos();
-        var level = context.getLevel();
-
-        if (level.isClientSide()) {
-
-        } else {
-            // Todo: qyl27.
-
-//            if (level.getBlockState(pos).entityCanStandOnFace(level, pos, )) {
-//
-//            }
-        }
-
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 }

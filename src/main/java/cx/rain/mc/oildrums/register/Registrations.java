@@ -3,12 +3,11 @@ package cx.rain.mc.oildrums.register;
 import cx.rain.mc.oildrums.OilDrums;
 import cx.rain.mc.oildrums.entity.OilDrumEntity;
 import cx.rain.mc.oildrums.item.AirDropCallerItem;
+import cx.rain.mc.oildrums.item.FireBallItem;
 import cx.rain.mc.oildrums.item.OilDrumItemBase;
 import cx.rain.mc.oildrums.utility.OilDrumType;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,6 +26,7 @@ public final class Registrations {
 		registerOilDrumsItems(reg);
 
 		reg.register(new AirDropCallerItem().setRegistryName("airdrop_caller"));
+		reg.register(new FireBallItem().setRegistryName("fire_ball"));
 	}
 
 	@SubscribeEvent

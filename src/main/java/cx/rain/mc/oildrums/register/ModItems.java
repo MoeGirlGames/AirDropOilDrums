@@ -24,4 +24,7 @@ public class ModItems {
 
     @ObjectHolder("oildrums:airdrop_caller")
     public static Item AIRDROP_CALLER;
+
+    @ObjectHolder("oildrums:fire_ball")
+    public static Item FIRE_BALL;
 }
