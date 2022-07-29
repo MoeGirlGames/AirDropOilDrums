@@ -16,33 +16,31 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = OilDrums.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BombCallerEvents {
     @SubscribeEvent
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+        if (event.getTarget().canRiderInteract()) {
+            var player = event.getPlayer();
+            var entity = event.getTarget();
+
+            if (player.getItemInHand(event.getHand()).is(ModItems.AIRDROP_CALLER)) {
+                var stack = player.getItemInHand(event.getHand());
+                BoomHelper.addBomb(stack, player, entity, event.getHand());
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onEntityMount(EntityMountEvent event) {
         if (event.isMounting()) {
-            if (event.getEntityMounting() instanceof Player player) {
-                if (player.isShiftKeyDown()) {
-                    System.out.println("4");
-                    if (player.getMainHandItem().is(ModItems.AIRDROP_CALLER)) {
-                        System.out.println("5");
-                        var stack = player.getMainHandItem();
-                        var entity = event.getEntityBeingMounted();
-                        BoomHelper.addBomb(stack, player, entity, InteractionHand.MAIN_HAND);
-                        event.setCanceled(true);
-                    } else {
-                        System.out.println("6");
-                        if (player.getMainHandItem().isEmpty() || player.getOffhandItem().is(ModItems.AIRDROP_CALLER)) {
-                            System.out.println("7");
-                            var stack = player.getOffhandItem();
-                            var entity = event.getEntityBeingMounted();
-                            BoomHelper.addBomb(stack, player, entity, InteractionHand.OFF_HAND);
-                        }
-                    }
-                }
+            if (BoomHelper.hasBomb(event.getEntityBeingMounted())) {
+                event.setCanceled(true);
             }
         }
     }
@@ -84,7 +82,7 @@ public class BombCallerEvents {
         }
 
         if (cap.shouldExplodeNow()) {
-            entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 1, Explosion.BlockInteraction.BREAK);
+            entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 3, Explosion.BlockInteraction.BREAK);
 
             kill(entity);
         }
