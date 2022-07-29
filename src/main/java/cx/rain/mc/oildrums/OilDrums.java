@@ -9,12 +9,12 @@ import org.apache.logging.log4j.Logger;
 public class OilDrums {
     public static final String MODID = "oildrums";
     public static final String NAME = "Oil Drums";
-    public static final String VERSION = "1.18.2-1.0.0";
+    public static final String VERSION = "1.18.2-1.0.1";
 
     private Logger logger = LogManager.getLogger(NAME);
 
     public OilDrums() {
-        logger.info("Loading Airdrop OilDrums.");
+        logger.info("Loading Airdrop OilDrums. Ver: " + VERSION);
 
         ModNetworking.register();
 

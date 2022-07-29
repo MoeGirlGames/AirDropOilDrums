@@ -1,7 +1,9 @@
 package cx.rain.mc.oildrums.network.packet;
 
 import cx.rain.mc.oildrums.capability.ExplodingEntity;
+import cx.rain.mc.oildrums.capability.ExplodingEntityProvider;
 import cx.rain.mc.oildrums.capability.ModCapabilities;
+import cx.rain.mc.oildrums.utility.BoomHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -32,8 +34,14 @@ public class CallExplodeC2SPacket {
                 return;
             }
 
+            if (BoomHelper.hasBomb(entity)) {
+                return;
+            }
+
             var capOptional = entity.getCapability(ModCapabilities.EXPLODING_ENTITY_CAPABILITY);
-            var cap = capOptional.orElse(new ExplodingEntity());
+            var cap = capOptional.orElse(new ExplodingEntityProvider()
+                    .getCapability(ModCapabilities.EXPLODING_ENTITY_CAPABILITY)
+                    .orElse(new ExplodingEntity()));
 
             cap.setExplode(120);
         });

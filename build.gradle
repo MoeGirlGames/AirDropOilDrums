@@ -33,7 +33,7 @@ loom {
     }
 }
 
-version = '1.18.2-1.0.0'
+version = '1.18.2-1.0.1'
 group = 'cx.rain.mc.oildrums'
 archivesBaseName = 'oildrums'
 
@@ -74,7 +74,7 @@ jar {
         attributes([
                 "Specification-Title"     : "oildrums",
                 "Specification-Vendor"    : "qyl27, Timicasto",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Version"   : "2", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "qyl27, Timicasto",
