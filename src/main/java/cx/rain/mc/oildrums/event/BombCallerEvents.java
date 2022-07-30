@@ -84,11 +84,11 @@ public class BombCallerEvents {
             if (cap.isTicked()) {
                 cap.setTicked(false);
                 return;
+            } else {
+                cap.setTicked(true);
+                cap.subExplodeRemain();
             }
         }
-
-        cap.subExplodeRemain();
-        cap.setTicked(true);
 
         if (cap.shouldExplodeNow()) {
             entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 3, Explosion.BlockInteraction.BREAK);
