@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
+import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -61,6 +62,10 @@ public class BombCallerEvents {
             return;
         }
 
+        if (event instanceof PlaySoundAtEntityEvent) {
+            return;
+        }
+
         var entity = event.getEntity();
 
         if (entity == null) {
@@ -88,7 +93,7 @@ public class BombCallerEvents {
                 cap.setTicked(true);
             }
         }
-        
+
         cap.subExplodeRemain();
 
         if (cap.shouldExplodeNow()) {
