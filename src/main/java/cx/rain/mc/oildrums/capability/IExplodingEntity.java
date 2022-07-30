@@ -11,6 +11,8 @@ public interface IExplodingEntity extends INBTSerializable<CompoundTag> {
     boolean shouldExplodeNow();
     int explodeRemainTicks();
     void subExplodeRemain();
+    boolean isTicked();
+    void setTicked(boolean ticked);
 
     void setExplode(int ticks);
 }

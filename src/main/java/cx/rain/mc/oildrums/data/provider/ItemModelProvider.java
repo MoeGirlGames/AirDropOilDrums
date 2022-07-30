@@ -20,11 +20,13 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
     @Override
     protected void registerModels() {
-        getBuilder(ModItems.AIRDROP_CALLER.getRegistryName().getPath())
-                .parent(getModel(HANDHELD))
-                .texture("layer0", new ResourceLocation(modid, "item/airdrop_caller"));
-        getBuilder(ModItems.FIRE_BALL.getRegistryName().getPath())
-                .parent(getModel(HANDHELD))
-                .texture("layer0", new ResourceLocation(modid, "item/fire_ball"));
+//        getBuilder(ModItems.AIRDROP_CALLER.getRegistryName().getPath())
+//                .parent(getModel(HANDHELD))
+//                .texture("layer0", new ResourceLocation(modid, "item/airdrop_caller"));
+//        getBuilder(ModItems.FIRE_BALL.getRegistryName().getPath())
+//                .parent(getModel(HANDHELD))
+//                .texture("layer0", new ResourceLocation(modid, "item/fire_ball"));
+
+
     }
 }

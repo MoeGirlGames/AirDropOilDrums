@@ -19,7 +19,8 @@ public class FireBallItem extends Item {
         super(new Properties()
                 .fireResistant()
                 .setNoRepair()
-                .stacksTo(1));
+                .stacksTo(1)
+                .tab(TabOilDrums.OIL_DRUMS));
     }
 
     @Override

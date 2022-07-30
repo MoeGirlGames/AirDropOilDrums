@@ -2,7 +2,7 @@ package cx.rain.mc.oildrums.register;
 
 import cx.rain.mc.oildrums.OilDrums;
 import cx.rain.mc.oildrums.entity.OilDrumEntity;
-import cx.rain.mc.oildrums.item.AirDropCallerItem;
+import cx.rain.mc.oildrums.item.BombSetterItem;
 import cx.rain.mc.oildrums.item.FireBallItem;
 import cx.rain.mc.oildrums.item.OilDrumItemBase;
 import cx.rain.mc.oildrums.utility.OilDrumType;
@@ -25,7 +25,7 @@ public final class Registrations {
 
 		registerOilDrumsItems(reg);
 
-		reg.register(new AirDropCallerItem().setRegistryName("airdrop_caller"));
+		reg.register(new BombSetterItem().setRegistryName("bomb_setter"));
 		reg.register(new FireBallItem().setRegistryName("fire_ball"));
 	}
 

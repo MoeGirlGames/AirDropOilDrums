@@ -4,8 +4,10 @@ import net.minecraft.nbt.CompoundTag;
 
 public class ExplodingEntity implements IExplodingEntity {
     public static final String REMAIN_TICKS_TAG_NAME = "explodeRemain";
+    public static final String LAST_TICKED_TAG_NAME = "lastTicked";
 
     private int explodeRemain = -1;
+    private boolean isTicked = false;
 
     @Override
     public boolean willExplode() {
@@ -33,6 +35,16 @@ public class ExplodingEntity implements IExplodingEntity {
     }
 
     @Override
+    public boolean isTicked() {
+        return isTicked;
+    }
+
+    @Override
+    public void setTicked(boolean ticked) {
+        isTicked = ticked;
+    }
+
+    @Override
     public void setExplode(int ticks) {
         explodeRemain = ticks;
     }
@@ -41,6 +53,7 @@ public class ExplodingEntity implements IExplodingEntity {
     public CompoundTag serializeNBT() {
         var nbt = new CompoundTag();
         nbt.putInt(REMAIN_TICKS_TAG_NAME, explodeRemain);
+        nbt.putBoolean(LAST_TICKED_TAG_NAME, isTicked);
         return nbt;
     }
 
@@ -48,6 +61,10 @@ public class ExplodingEntity implements IExplodingEntity {
     public void deserializeNBT(CompoundTag tag) {
         if (tag.contains(REMAIN_TICKS_TAG_NAME)) {
             explodeRemain = tag.getInt(REMAIN_TICKS_TAG_NAME);
+        }
+
+        if (tag.contains(LAST_TICKED_TAG_NAME)) {
+            isTicked = tag.getBoolean(LAST_TICKED_TAG_NAME);
         }
     }
 }

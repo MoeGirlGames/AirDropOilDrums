@@ -22,8 +22,8 @@ public class ModItems {
     @ObjectHolder("oildrums:oil_drum_set")
     public static Item OIL_DRUM_SET;
 
-    @ObjectHolder("oildrums:airdrop_caller")
-    public static Item AIRDROP_CALLER;
+    @ObjectHolder("oildrums:bomb_setter")
+    public static Item BOMB_SETTER;
 
     @ObjectHolder("oildrums:fire_ball")
     public static Item FIRE_BALL;

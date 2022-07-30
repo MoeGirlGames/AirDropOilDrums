@@ -27,7 +27,7 @@ public class BoomHelper {
             var cap = capOptional.orElse(new ExplodingEntityProvider()
                     .getCapability(ModCapabilities.EXPLODING_ENTITY_CAPABILITY)
                     .orElse(new ExplodingEntity()));
-            cap.setExplode(120);
+            cap.setExplode(200);
 
             if (!player.isCreative()) {
                 stack.setDamageValue(stack.getDamageValue() + 1);

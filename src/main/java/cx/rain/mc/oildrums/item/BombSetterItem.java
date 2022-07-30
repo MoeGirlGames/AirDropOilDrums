@@ -9,8 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
-public class AirDropCallerItem extends Item {
-    public AirDropCallerItem() {
+public class BombSetterItem extends Item {
+    public BombSetterItem() {
         super(new Properties()
                 .tab(TabOilDrums.OIL_DRUMS)
                 .defaultDurability(7)
