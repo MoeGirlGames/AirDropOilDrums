@@ -100,12 +100,12 @@ public class BombCallerEvents {
             entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 3, Explosion.BlockInteraction.BREAK);
 
             kill(entity);
-        }
+            cap.setExplode(-1);
 
-        if (cap.shouldPlaySound()) {
-            entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
+            if (cap.shouldPlaySound()) {
+                entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
+            }
         }
-
     }
 
     @SubscribeEvent
