@@ -20,7 +20,7 @@ public class BombSetterItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        stack = BoomHelper.addBomb(stack, player, target);
+        stack = BoomHelper.addBomb(stack, player, target, true, 200);
         return InteractionResult.SUCCESS;
     }
 }

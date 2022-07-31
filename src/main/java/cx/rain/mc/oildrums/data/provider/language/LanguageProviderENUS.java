@@ -13,7 +13,7 @@ public class LanguageProviderENUS extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add(ModItems.BOMB_SETTER, "Bomb setter");
-        add(ModItems.FIRE_BALL, "Exploding ball");
+        add(ModItems.FIRE_BALL, "Unstable ball");
         add(FireBallItem.DESC_1, "It will really explode!");
         add(FireBallItem.DESC_2, "But explosion is an art.");
 

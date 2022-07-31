@@ -13,7 +13,7 @@ public class LanguageProviderZHCN extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add(ModItems.BOMB_SETTER, "炸弹放置器");
-        add(ModItems.FIRE_BALL, "会爆炸的球");
+        add(ModItems.FIRE_BALL, "不稳定的球");
         add(FireBallItem.DESC_1, "真的会爆炸！");
         add(FireBallItem.DESC_2, "但爆炸就是艺术");
 

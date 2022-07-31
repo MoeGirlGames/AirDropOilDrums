@@ -4,9 +4,11 @@ import cx.rain.mc.oildrums.OilDrums;
 import cx.rain.mc.oildrums.capability.ExplodingEntity;
 import cx.rain.mc.oildrums.capability.ExplodingEntityProvider;
 import cx.rain.mc.oildrums.capability.ModCapabilities;
+import cx.rain.mc.oildrums.data.ModItemTags;
 import cx.rain.mc.oildrums.register.ModItems;
 import cx.rain.mc.oildrums.utility.BoomHelper;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
@@ -23,16 +25,28 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = OilDrums.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BombCallerEvents {
+
     @SubscribeEvent
     public static void onEntityMount(EntityMountEvent event) {
         if (event.isMounting()) {
             var entity = event.getEntityBeingMounted();
             if (event.getEntityMounting() instanceof Player player) {
                 if (!BoomHelper.hasBomb(entity)) {
-                    if (player.getMainHandItem().is(ModItems.BOMB_SETTER) ||
-                            (player.getMainHandItem().isEmpty()
-                                    && player.getOffhandItem().is(ModItems.BOMB_SETTER))) {
-                        BoomHelper.addBomb(player.getMainHandItem(), player, entity);
+                    var item = player.getMainHandItem();
+                    var offHandItem = player.getOffhandItem();
+                    if (item.is(ModItems.BOMB_SETTER)) {
+                        BoomHelper.addBomb(item, player, entity, true, 200);
+                        event.setCanceled(true);
+                    } else if (item.isEmpty() && offHandItem.is(ModItems.BOMB_SETTER)) {
+                        BoomHelper.addBomb(offHandItem, player, entity, true, 200);
+                        event.setCanceled(true);
+                    }
+
+                    if (item.is(ModItems.FIRE_BALL)) {
+                        BoomHelper.addBomb(item, player, entity, false, 100);
+                        event.setCanceled(true);
+                    } else if (item.isEmpty() && offHandItem.is(ModItems.FIRE_BALL)) {
+                        BoomHelper.addBomb(offHandItem, player, entity, false, 100);
                         event.setCanceled(true);
                     }
                 }
@@ -97,14 +111,11 @@ public class BombCallerEvents {
         cap.subExplodeRemain();
 
         if (cap.shouldExplodeNow()) {
-            entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 3, Explosion.BlockInteraction.BREAK);
+            BoomHelper.haBoom(entity, cap);
+        }
 
-            kill(entity);
-            cap.setExplode(-1);
-
-            if (cap.shouldPlaySound()) {
-                entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
-            }
+        if (cap.shouldPlaySound()) {
+            entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
         }
     }
 
@@ -128,9 +139,7 @@ public class BombCallerEvents {
         cap.subExplodeRemain();
 
         if (cap.shouldExplodeNow()) {
-            entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 3, Explosion.BlockInteraction.BREAK);
-
-            kill(entity);
+            BoomHelper.haBoom(entity, cap);
         }
 
         if (cap.shouldPlaySound()) {
@@ -138,14 +147,5 @@ public class BombCallerEvents {
         }
     }
 
-    private static void kill(Entity entity) {
-        if (!(entity instanceof Player)) {
-            if (entity.hasPassenger(e -> true)) {
-                for (var passenger : entity.getPassengers()) {
-                    kill(passenger);
-                }
-            }
-            entity.kill();
-        }
-    }
+
 }

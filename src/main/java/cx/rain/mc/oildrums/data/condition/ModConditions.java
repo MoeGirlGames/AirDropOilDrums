@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = OilDrums.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModConditions {
-    public static final ResourceLocation HAS_ITEM_ID = new ResourceLocation(OilDrums.MODID, "has_item");
+    public static final ResourceLocation IS_BOMB_KILLED = new ResourceLocation(OilDrums.MODID, "killed_by_bomb");
 
     @SubscribeEvent
     public static void onRegisterPredicates(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-//        Registry.register(Registry.LOOT_CONDITION_TYPE, HAS_ITEM_ID, HasItemCondition.HAS_ITEM_TYPE);
+        Registry.register(Registry.LOOT_CONDITION_TYPE, IS_BOMB_KILLED, BombKilledCondition.BOMB_KILLED_TYPE);
     }
 }

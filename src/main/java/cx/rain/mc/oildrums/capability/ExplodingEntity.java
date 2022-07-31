@@ -2,12 +2,17 @@ package cx.rain.mc.oildrums.capability;
 
 import net.minecraft.nbt.CompoundTag;
 
+import java.util.UUID;
+
 public class ExplodingEntity implements IExplodingEntity {
     public static final String REMAIN_TICKS_TAG_NAME = "explodeRemain";
     public static final String LAST_TICKED_TAG_NAME = "lastTicked";
+    public static final String BOMB_SETTER_TAG_NAME = "bombSetter";
 
     private int explodeRemain = -1;
     private boolean isTicked = false;
+
+    private UUID setter = null;
 
     @Override
     public boolean willExplode() {
@@ -45,8 +50,24 @@ public class ExplodingEntity implements IExplodingEntity {
     }
 
     @Override
-    public void setExplode(int ticks) {
+    public void setExplode(int ticks, UUID setterUuid) {
         explodeRemain = ticks;
+        setter = setterUuid;
+    }
+
+    @Override
+    public void setBombSetter(UUID uuid) {
+        setter = uuid;
+    }
+
+    @Override
+    public boolean hasBombSetter() {
+        return setter != null;
+    }
+
+    @Override
+    public UUID getBombSetter() {
+        return setter;
     }
 
     @Override
@@ -54,6 +75,9 @@ public class ExplodingEntity implements IExplodingEntity {
         var nbt = new CompoundTag();
         nbt.putInt(REMAIN_TICKS_TAG_NAME, explodeRemain);
         nbt.putBoolean(LAST_TICKED_TAG_NAME, isTicked);
+        if (setter != null) {
+            nbt.putUUID(BOMB_SETTER_TAG_NAME, setter);
+        }
         return nbt;
     }
 
@@ -65,6 +89,10 @@ public class ExplodingEntity implements IExplodingEntity {
 
         if (tag.contains(LAST_TICKED_TAG_NAME)) {
             isTicked = tag.getBoolean(LAST_TICKED_TAG_NAME);
+        }
+
+        if (tag.contains(BOMB_SETTER_TAG_NAME)) {
+            setter = tag.getUUID(BOMB_SETTER_TAG_NAME);
         }
     }
 }

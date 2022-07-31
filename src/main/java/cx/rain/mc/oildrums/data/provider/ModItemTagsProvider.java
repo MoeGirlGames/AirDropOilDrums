@@ -15,6 +15,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
+        tag(ModItemTags.BOMB_SETTERS).add(ModItems.BOMB_SETTER, ModItems.FIRE_BALL);
+
         tag(ModItemTags.GARLIC).add(ModItems.FIRE_BALL);
     }
 }
