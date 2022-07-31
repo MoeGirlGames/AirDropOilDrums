@@ -1,16 +1,16 @@
 package cx.rain.mc.oildrums.utility;
 
-import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
 
-public class BombDamageSource extends EntityDamageSource {
-    public BombDamageSource(String name, Entity setter) {
-        super(name, setter);
+public class BombDamageSource extends IndirectEntityDamageSource {
+    public BombDamageSource(String name, Entity entity, Entity setter) {
+        super(name, entity, setter);
 
         setExplosion();
     }
 
-    public static BombDamageSource getBombDamageSource(Entity setter) {
-        return new BombDamageSource("bomb", setter);
+    public static BombDamageSource getBombDamageSource(Entity entity, Entity setter) {
+        return new BombDamageSource("bomb", entity, setter);
     }
 }

@@ -24,5 +24,13 @@
 		"ground": {
 			"scale": [0.8, 0.8, 0.5]
 		}
-	}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"custom_model_data": 27
+			},
+			"model": "oildrums:item/fire_ball_invisible"
+		}
+	]
 }

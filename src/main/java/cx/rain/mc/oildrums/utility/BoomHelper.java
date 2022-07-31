@@ -6,7 +6,9 @@ import cx.rain.mc.oildrums.capability.IExplodingEntity;
 import cx.rain.mc.oildrums.capability.ModCapabilities;
 import cx.rain.mc.oildrums.network.ModNetworking;
 import cx.rain.mc.oildrums.network.packet.CallExplodeC2SPacket;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
@@ -53,7 +55,7 @@ public class BoomHelper {
 
         if (exp.hasBombSetter()) {
             player = entity.level.getPlayerByUUID(exp.getBombSetter());
-            source = BombDamageSource.getBombDamageSource(player);
+            source = BombDamageSource.getBombDamageSource(entity, player);
         }
 
         entity.level.explode(entity, source, new BombExplosionDamageCalculator(player, entity),
@@ -68,12 +70,13 @@ public class BoomHelper {
 
     private static void hurt(Entity entity, Player player) {
         if (!(entity instanceof Player)) {
-//            if (entity.hasPassenger(e -> true)) {
-//                for (var passenger : entity.getPassengers()) {
-//                    kill(passenger);
-//                }
-//            }
-            entity.hurt(BombDamageSource.getBombDamageSource(player), 10.0f);
+            if (entity.hasPassenger(e -> true)) {
+                for (var passenger : entity.getPassengers()) {
+                    passenger.hurt(DamageSource.explosion(player), Float.MAX_VALUE);
+                }
+            }
+
+            entity.hurt(DamageSource.explosion(player), Float.MAX_VALUE);
         }
     }
 }

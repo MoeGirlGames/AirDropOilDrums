@@ -6,8 +6,10 @@ import cx.rain.mc.oildrums.capability.ExplodingEntityProvider;
 import cx.rain.mc.oildrums.capability.ModCapabilities;
 import cx.rain.mc.oildrums.data.ModItemTags;
 import cx.rain.mc.oildrums.register.ModItems;
+import cx.rain.mc.oildrums.utility.BombDamageSource;
 import cx.rain.mc.oildrums.utility.BoomHelper;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -115,7 +117,13 @@ public class BombCallerEvents {
         }
 
         if (cap.shouldPlaySound()) {
-            entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
+//            Player player = null;
+//            if (cap.hasBombSetter()) {
+//                player = entity.level.getPlayerByUUID(cap.getBombSetter());
+//            }
+
+            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
+                    SoundEvents.NOTE_BLOCK_HAT, SoundSource.AMBIENT, 1.0f, 0.5f);
         }
     }
 
@@ -143,9 +151,13 @@ public class BombCallerEvents {
         }
 
         if (cap.shouldPlaySound()) {
-            entity.playSound(SoundEvents.NOTE_BLOCK_HAT, 1.0f, 0.5f);
+//            Player player = null;
+//            if (cap.hasBombSetter()) {
+//                player = entity.level.getPlayerByUUID(cap.getBombSetter());
+//            }
+
+            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
+                    SoundEvents.NOTE_BLOCK_HAT, SoundSource.NEUTRAL, 1.0f, 0.5f);
         }
     }
-
-
 }
