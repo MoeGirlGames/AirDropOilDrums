@@ -21,7 +21,7 @@ public class ExplodingEntity implements IExplodingEntity {
 
     @Override
     public boolean shouldPlaySound() {
-        return explodeRemain % 15 == 0;
+        return explodeRemain % 10 == 0;
     }
 
     @Override

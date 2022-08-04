@@ -72,11 +72,11 @@ public class BoomHelper {
         if (!(entity instanceof Player)) {
             if (entity.hasPassenger(e -> true)) {
                 for (var passenger : entity.getPassengers()) {
-                    passenger.hurt(DamageSource.explosion(player), Float.MAX_VALUE);
+                    passenger.hurt(DamageSource.explosion(player), 10000);
                 }
             }
 
-            entity.hurt(DamageSource.explosion(player), Float.MAX_VALUE);
+            entity.hurt(DamageSource.explosion(player), 10000);
         }
     }
 }

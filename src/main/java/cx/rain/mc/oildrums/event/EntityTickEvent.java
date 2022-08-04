@@ -2,9 +2,11 @@ package cx.rain.mc.oildrums.event;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.eventbus.api.Cancelable;
 
-public class BoatTickEvent extends EntityEvent {
-    public BoatTickEvent(Entity entity) {
+@Cancelable
+public class EntityTickEvent extends EntityEvent {
+    public EntityTickEvent(Entity entity) {
         super(entity);
     }
 }
